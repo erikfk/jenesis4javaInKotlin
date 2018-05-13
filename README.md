@@ -1,4 +1,8 @@
 # jenesis4javaInKotlin
+
+current status<br>
+[![Build Status](https://travis-ci.com/erikfk/jenesis4javaInKotlin.png)](https://travis-ci.com/erikfk/jenesis4javaInKotlin)
+
 "Reboot" of jenesis 4 Java written in Kotlin
 
 This project is meant to be (someday, in an undefined future) a rewrite of the SourceForge project jenesis4java - http://jenesis4java.sourceforge.net/
