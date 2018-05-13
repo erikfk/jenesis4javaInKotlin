@@ -12,9 +12,12 @@
 
     <properties>
         <dokka.version>0.9.16</dokka.version>
+        <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
+        <jenesis4javaInKotlin.java.version>1.8</jenesis4javaInKotlin.java.version>
         <junit.version>5.2.0</junit.version>
         <kotlin.version>1.2.41</kotlin.version>
         <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
+        <minimum.acceptable.code.coverage>0.9</minimum.acceptable.code.coverage>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -74,13 +77,13 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>1.8</jvmTarget>
+                    <jvmTarget>${jenesis4javaInKotlin.java.version}</jvmTarget>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.1</version>
+                <version>${jacoco-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
@@ -108,7 +111,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.90</minimum>
+                                            <minimum>${minimum.acceptable.code.coverage}</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
