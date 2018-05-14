@@ -2,7 +2,7 @@ language: java
 jdk:
 - oraclejdk8
 
-script: mvn clean install site
+script: mvn clean help:effective-pom install site
 
 cache:
   directories:
