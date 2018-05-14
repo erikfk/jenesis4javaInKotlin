@@ -11,6 +11,7 @@
     <url>https://github.com/erikfk/jenesis4javaInKotlin</url>
 
     <properties>
+        <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
         <dokka.version>0.9.16</dokka.version>
         <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
         <jenesis4javaInKotlin.java.version>1.8</jenesis4javaInKotlin.java.version>
@@ -124,10 +125,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>${maven-project-info-reports-plugin.version}</version>
-                <configuration>
-                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                </configuration>
-            </plugin>
+             </plugin>
         </plugins>
     </build>
     <pluginRepositories>
