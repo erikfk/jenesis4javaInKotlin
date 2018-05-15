@@ -2,30 +2,30 @@ package net.sourceforge.jenesis4java.j4jik
 
 import net.sourceforge.jenesis4java.j4jik.JGenerator.createOrdinaryCompilationUnit
 import net.sourceforge.jenesis4java.j4jik.JGenerator.getUnits
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 internal class JGeneratorTest {
     @Test
     fun testOrdinaryCompilationUnitCreation() {
-        val unit = createOrdinaryCompilationUnit("path/to/file", "net.sourceforge.jenesis4java.j4jik")
+        val unit = createOrdinaryCompilationUnit("path/to/fileCreate", "net.sourceforge.jenesis4java.j4jik")
 
-        assertEquals("path/to/file", unit.path)
+        assertEquals("path/to/fileCreate", unit.path)
         assertEquals("net.sourceforge.jenesis4java.j4jik", unit.jPackage)
     }
 
     @Test
     fun testOrdinaryCompilationUnitCreationBasePackage() {
-        val unit = createOrdinaryCompilationUnit("path/to/file")
+        val unit = createOrdinaryCompilationUnit("path/to/fileCreateInBase")
 
-        assertEquals("path/to/file", unit.path)
+        assertEquals("path/to/fileCreateInBase", unit.path)
         assertEquals("", unit.jPackage)
     }
 
     @Test
     fun testClear() {
-        createOrdinaryCompilationUnit("path/to/file", "net.sourceforge.jenesis4java.j4jik")
+        createOrdinaryCompilationUnit("path/to/fileClear", "net.sourceforge.jenesis4java.j4jik")
         JGenerator.clear()
 
         assertEquals(0, getUnits().size)
@@ -34,7 +34,7 @@ internal class JGeneratorTest {
     @Test
     fun testGetUnits() {
         var units = getUnits()
-        assertEquals(0, units.size)
+        assertEquals(0, units.size, "There should be no unit but found $units")
         assertListIsUnmodifiable(units)
 
         for (i in 1..10) {
@@ -48,17 +48,17 @@ internal class JGeneratorTest {
 
     // Silly way to verify the returned list cannot be used to modify JGenerator
     // See if this can be simplified or should be removed.
-    private fun assertListIsUnmodifiable(units: List<JCompilationUnit>) {
+    private fun assertListIsUnmodifiable(units: List<JOrdinaryCompilationUnit>) {
         val initialSize = getUnits().size
         try {
             when (units) {
                 is MutableList -> {
-                    units.add(JCompilationUnit("path"))
+                    units.add(JOrdinaryCompilationUnit("path"))
                     checkSizeUnchanged(initialSize)
                 }
                 is java.util.List<*> -> {
-                    val unitsList = units as java.util.List<JCompilationUnit>
-                    unitsList.add(JCompilationUnit("path"))
+                    val unitsList = units as java.util.List<JOrdinaryCompilationUnit>
+                    unitsList.add(JOrdinaryCompilationUnit("path"))
                     checkSizeUnchanged(initialSize)
                 }
                 else -> fail("unexpected list type")
@@ -74,8 +74,8 @@ internal class JGeneratorTest {
         }
     }
 
-    @AfterEach
-    fun afterEach() {
+    @BeforeEach
+    fun beforeEach() {
         JGenerator.clear()
     }
 }

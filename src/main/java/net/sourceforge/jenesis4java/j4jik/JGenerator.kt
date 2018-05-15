@@ -6,7 +6,7 @@ package net.sourceforge.jenesis4java.j4jik
 object JGenerator {
 
     // TODO: thread safety! when accessing this list!
-    private val unitsList = mutableListOf<JCompilationUnit>()
+    private val unitsList = mutableListOf<JOrdinaryCompilationUnit>()
 
     /**
      * Resets the JGenerator
@@ -25,8 +25,8 @@ object JGenerator {
      * Take a look Java 10 JLS §7.3 for more information about ordinary
      * compilation units.
      */
-    fun createOrdinaryCompilationUnit(path: String, jPackage: String = "") : JCompilationUnit {
-        val jCompilationUnit = JCompilationUnit(path, jPackage)
+    fun createOrdinaryCompilationUnit(path: String, jPackage: String = "") : JOrdinaryCompilationUnit {
+        val jCompilationUnit = JOrdinaryCompilationUnit(path, jPackage)
         unitsList.add(jCompilationUnit)
         return jCompilationUnit
     }
@@ -34,7 +34,7 @@ object JGenerator {
     /**
      * Returns a read only copy pf the current list of compilation units.
      */
-    fun getUnits(): List<JCompilationUnit> {
+    fun getUnits(): List<JOrdinaryCompilationUnit> {
         return unitsList.toList()
     }
 }
