@@ -9,7 +9,7 @@ object JGenerator {
     private val unitsList = mutableListOf<JOrdinaryCompilationUnit>()
 
     /**
-     * Resets the JGenerator
+     * Resets the JGenerator.
      */
     fun clear() {
         unitsList.clear()

@@ -12,6 +12,10 @@ package net.sourceforge.jenesis4java.j4jik
  * @param[jPackage] Package the new JOrdinaryCompilationUnit belongs to
  */
 class JOrdinaryCompilationUnit(val path: String, val jPackage: String = "") {
+
+    /**
+     * Human readable descrition of JOrdinaryCompilationUnit instance
+     */
     override fun toString(): String {
         return "JOrdinaryCompilationUnit(path='$path', jPackage='$jPackage')"
     }
