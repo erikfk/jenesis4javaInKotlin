@@ -2,7 +2,10 @@ language: java
 jdk:
 - oraclejdk8
 
-script: mvn clean help:effective-pom install site
+install: true
+
+# to get the effective pom, add help:effective-pom
+script: mvn clean install site
 
 cache:
   directories:
