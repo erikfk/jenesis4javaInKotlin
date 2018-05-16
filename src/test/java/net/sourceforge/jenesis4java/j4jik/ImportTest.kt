@@ -21,11 +21,18 @@ internal class ImportTest {
     }
 
     @Test
-    fun testEqualsHashCodeDifferent() {
-        val import = Import("a.b.c")
-        val import2 = Import("a.b.f")
+    fun testEqualsDifferentInstances() {
+        assertNotEquals(Import("a.b.c"), Import("a.b.f"))
+    }
 
-        assertNotEquals(import, import2)
+    @Test
+    fun testEqualsDifferentTypes() {
+        assertNotEquals(Import("a.b.c"), 42)
+    }
+
+    @Test
+    fun testEqualsNull() {
+        assertNotEquals(Import("a.b.c"), null)
     }
 
     @Test
