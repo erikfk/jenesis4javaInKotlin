@@ -19,8 +19,12 @@
         <kotlin.version>1.2.41</kotlin.version>
         <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
-        <minimum.acceptable.code.coverage>100%</minimum.acceptable.code.coverage>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Related to JaCoCo -->
+        <minimum.acceptable.branch.coverage>90%</minimum.acceptable.branch.coverage>
+        <minimum.acceptable.instruction.coverage>90%</minimum.acceptable.instruction.coverage>
+        <minimum.acceptable.line.coverage>100%</minimum.acceptable.line.coverage>
     </properties>
 
     <dependencies>
@@ -130,7 +134,17 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>${minimum.acceptable.code.coverage}</minimum>
+                                            <minimum>${minimum.acceptable.line.coverage}</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>INSTRUCTION</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${minimum.acceptable.instruction.coverage}</minimum>
+                                        </limit>
+                                        <limit>
+                                            <counter>BRANCH</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>${minimum.acceptable.branch.coverage}</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
