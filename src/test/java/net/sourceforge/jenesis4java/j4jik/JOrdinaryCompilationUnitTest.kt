@@ -30,4 +30,16 @@ internal class JOrdinaryCompilationUnitTest {
 
         assertEquals("/some/path", compilationUnit.path)
     }
+
+    @Test
+    fun imports() {
+        val compilationUnit = JOrdinaryCompilationUnit("/some/path", "a.b.c")
+
+        compilationUnit.addImport(Import("a.b.d"))
+
+        val imports = compilationUnit.getImports()
+
+        assertEquals(1, imports.size)
+        assertEquals(Import("a.b.d"), imports[0])
+    }
 }
