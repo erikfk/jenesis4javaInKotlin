@@ -8,4 +8,16 @@ internal class TypeParameterTest {
     fun test() {
         assertEquals("E", TypeParameter("E").typeIdentifier)
     }
+
+    @Test
+    fun tesCodeSimpleTypeIdentifier() {
+        val build = StringBuilder()
+        assertEquals("E", TypeParameter("E").toCode(build).toString())
+    }
+
+    @Test
+    fun tesCodeWithExtends() {
+        val build = StringBuilder()
+        assertEquals("E extends F", TypeParameter("E").extendBound("F").toCode(build).toString())
+    }
 }

@@ -13,11 +13,11 @@ Rewriting jenesis4java from scratch therefore seems to me not only the best but 
 
 Writing the new jenesis4java in Kotlin seems like a good choice as of this writing as Kotlin is a modern and powerful JVM language far less verbose than Java that offers interoperability with Java. On an other (more personal) side: my first contact with Kotlin has been quite pleasant so I wanted to use it in a real project. For reasons beyond the scope of this README, using it to write a new jenesis4java was a rather obvious choice. So here am I.
 
-The (i.e. my) main challenge is that I'm a nototious procrastinator - it took me two weeks to actually create this repository... - and that things I do seem to take an excessively long time. That I talk too much instead of writing working code is a related weakness, as you rightly guessed while reading these lines.
+The (i.e. my) main challenge is that I'm a notorious procrastinator - it took me two weeks to actually create this repository... - and that things I do seem to take an excessively long time. That I talk too much instead of writing working code is a related weakness, as you rightly guessed while reading these lines.
 
 I nevertheless hope that things will start to speed up at one time or another and the project and its code will actually deliver useful functionality.
 
-I intend to start small by concentrating on certain aspects of the Java code generation, like covering the whole spectrum of Java class genberation including Generics (which jenesis4java doesn't cover as of this writing, forcing you to use String concatenation to generate class using generics). When this goal is achieved, we'll see...
+I intend to start small by concentrating on certain aspects of the Java code generation, like covering the whole spectrum of Java class generation including Generics (which jenesis4java doesn't cover as of this writing, forcing you to use String concatenation to generate class using generics). When this goal is achieved, we'll see...
 
 I intend to use the nomenclature found in the Java Language Specification when it comes to naming elements of the Java language in  jenesis4javaInKotlin - also here jenesis4java took weird decisions probably in the early days of the project and I want to get rid of that past.
 

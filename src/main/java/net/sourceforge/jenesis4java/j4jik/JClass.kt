@@ -19,7 +19,7 @@ class JClass(val className : String) {
      */
     fun toCode(builder: StringBuilder): StringBuilder {
         return builder.append("""
-            |${access.value} class $className {
+            |${access.value} ${JKeywords.CLASS.keyword} $className {
             |}
             """.trimMargin())
     }
