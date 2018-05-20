@@ -17,9 +17,9 @@ class JClass(val className : String) {
     /**
      * Write the code of this class into [builder]
      */
-    fun toCode(builder: StringBuilder) {
-        builder.append("""
-            |${access.value} $className {
+    fun toCode(builder: StringBuilder): StringBuilder {
+        return builder.append("""
+            |${access.value} class $className {
             |}
             """.trimMargin())
     }
