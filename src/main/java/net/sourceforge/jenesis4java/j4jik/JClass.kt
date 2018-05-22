@@ -8,16 +8,16 @@ package net.sourceforge.jenesis4java.j4jik
  * @param[className] the name of the class to create
  * @constructor create a public class called [className]
  */
-class JClass(val className : String) {
+class JClass(val className : String) : Codeable {
     /**
      * Access modifier for class
      */
     var access = AccessModifier.PUBLIC
 
     /**
-     * Write the code of this class into [builder]
+     * Writes the code of this class into [builder]
      */
-    fun toCode(builder: StringBuilder): StringBuilder {
+    override fun toCode(builder: StringBuilder): StringBuilder {
         return builder.append("""
             |${access.value} ${JKeywords.CLASS.keyword} $className {
             |}

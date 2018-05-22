@@ -6,13 +6,13 @@ package net.sourceforge.jenesis4java.j4jik
  *
  * @param[typeIdentifier]
  */
-class TypeParameter(val typeIdentifier : String) {
+class TypeParameter(val typeIdentifier : String) : Codeable {
     private var typeBound: String? = null
 
     /**
      * Writes the code of this class into [builder] and returns [builder].
      */
-    fun toCode(builder: StringBuilder): StringBuilder {
+    override fun toCode(builder: StringBuilder): StringBuilder {
         builder.append(typeIdentifier)
         if (typeBound != null) {
             builder.append(" extends $typeBound")

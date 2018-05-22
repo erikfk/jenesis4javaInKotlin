@@ -11,13 +11,11 @@ internal class TypeParameterTest {
 
     @Test
     fun tesCodeSimpleTypeIdentifier() {
-        val build = StringBuilder()
-        assertEquals("E", TypeParameter("E").toCode(build).toString())
+        assertEquals("E", TypeParameter("E").toCode())
     }
 
     @Test
     fun tesCodeWithExtends() {
-        val build = StringBuilder()
-        assertEquals("E extends F", TypeParameter("E").extendBound("F").toCode(build).toString())
+        assertEquals("E extends F", TypeParameter("E").extendBound("F").toCode())
     }
 }

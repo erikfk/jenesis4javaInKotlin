@@ -18,4 +18,14 @@ internal class JWildcardTest {
         val wildcard = JWildcard()
         assertNull( wildcard.wildcardBounds)
     }
+
+    @Test
+    fun toCodedWithoutBounds() {
+        assertEquals("?", JWildcard().toCode())
+    }
+
+    @Test
+    fun toCodedWithBounds() {
+        assertEquals("? extends SomeClass", JWildcard(JWildcardBounds.extends("SomeClass")).toCode())
+    }
 }
