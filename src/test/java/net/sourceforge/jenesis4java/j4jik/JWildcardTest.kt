@@ -7,9 +7,15 @@ import org.junit.jupiter.api.Assertions.*
 internal class JWildcardTest {
 
     @Test
-    fun wildcardWithExtends() {
-        val wildcard = JWildcard.extends("String")
-        assertSame(JKeywords.EXTENDS, wildcard.type)
-        assertEquals("String", wildcard.referenceType)
+    fun wildcardWithBounds() {
+        val wildcardBounds = JWildcardBounds.extends("SomeClass")
+        val wildcard = JWildcard(wildcardBounds)
+        assertSame(wildcardBounds, wildcard.wildcardBounds)
+    }
+
+    @Test
+    fun wildcardWithoutBounds() {
+        val wildcard = JWildcard()
+        assertNull( wildcard.wildcardBounds)
     }
 }

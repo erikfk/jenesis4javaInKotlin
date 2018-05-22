@@ -14,7 +14,11 @@ enum class JKeywords(val keyword: String) {
      */
     CLASS("class"),
     /**
-     * Java rxtends keyword.
+     * Java extends keyword.
      */
-    EXTENDS("extends")
+    EXTENDS("extends"),
+    /**
+     * Java extends keyword.
+     */
+    SUPER("super")
 }
