@@ -4,6 +4,11 @@ package net.sourceforge.jenesis4java.j4jik
  * Models a Java type parameter.
  * See JLS 10 §8.1.2
  *
+ * **Notes:**
+ * * a TypeParameter can also have a TypeParameterModifier i.e. an
+ * annotation. This is not supported yet.
+ * * a type bound can also have additional bounds. This is not supported yet.
+ *
  * @param[typeIdentifier] the type identifier of the [TypeParameter]
  */
 class TypeParameter(val typeIdentifier : String) : Codeable {
