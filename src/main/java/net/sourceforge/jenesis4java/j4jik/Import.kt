@@ -9,7 +9,7 @@ package net.sourceforge.jenesis4java.j4jik
  */
 class Import(val import: String) {
     /**
-     *  Human readable description of Import instance
+     *  Human readable representation of this [Import].
      */
     override fun toString(): String {
         return "Import(import='$import')"

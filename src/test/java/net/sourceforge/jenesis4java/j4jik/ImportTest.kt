@@ -14,9 +14,8 @@ internal class ImportTest {
 
     @Test
     fun testToString() {
-        val import = Import("a.b.c")
+        val toString = Import("a.b.c").toString()
 
-        val toString = import.toString()
         assertTrue(toString.contains("a.b.c"), "Expected toString to contain the name of the import but was $toString")
     }
 

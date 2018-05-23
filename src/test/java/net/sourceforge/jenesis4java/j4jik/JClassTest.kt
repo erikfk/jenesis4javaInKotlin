@@ -31,4 +31,39 @@ internal class JClassTest {
 
         assertCodeEquals("private class ClassName {}", jClass.toCode())
     }
+
+    @Test
+    fun getTypeParameterWhenNone() {
+        val jClass = JClass("ClassName")
+
+        assertEquals(0, jClass.getTypeParameters().size)
+    }
+
+    @Test
+    fun addTypeParameter() {
+        val jClass = JClass("ClassName")
+        jClass.addTypeParameter(TypeParameter("E"))
+
+        val typeParameters = jClass.getTypeParameters()
+
+        assertEquals(1, typeParameters.size)
+        assertEquals(TypeParameter("E"), typeParameters[0])
+    }
+
+    @Test
+    fun toCodeWithOneTypeParameter() {
+        val jClass = JClass("ClassName")
+        jClass.addTypeParameter(TypeParameter("E"))
+
+        assertCodeEquals("public class ClassName<E> {}", jClass.toCode())
+    }
+
+    @Test
+    fun toCodeWithTypeParameters() {
+        val jClass = JClass("ClassName")
+        jClass.addTypeParameter(TypeParameter("E"))
+        jClass.addTypeParameter(TypeParameter("F").extendBound("G"))
+
+        assertCodeEquals("public class ClassName<E, F extends G> {}", jClass.toCode())
+    }
 }

@@ -27,8 +27,13 @@ public class FormattingHelper {
      * @throws FormatterException thrown if formatting failed (typically because
      *                            the code is incorrect).
      */
-    public static String formatCode(String rawCode) throws FormatterException {
-        return FORMATTER.formatSource(rawCode);
+    public static String formatCode(String rawCode) {
+        try {
+            return FORMATTER.formatSource(rawCode);
+        } catch (FormatterException e) {
+            Assertions.fail("Unable to format " + rawCode, e);
+            return "";
+        }
     }
 
     /**
