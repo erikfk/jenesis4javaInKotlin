@@ -14,6 +14,10 @@ enum class JKeywords(val keyword: String) {
      */
     CLASS("class"),
     /**
+     * Java enum keyword.
+     */
+    ENUM("enum"),
+    /**
      * Java extends keyword.
      */
     EXTENDS("extends"),

@@ -6,7 +6,7 @@ import java.util.stream.Collectors
  * Models a Java class.
  *
  * @param[className] the name of the class to create
- * @constructor create a public class called [className]
+ * @constructor creates a new public class named [className]
  */
 class JClass(val className: String) : Codeable {
     /**
