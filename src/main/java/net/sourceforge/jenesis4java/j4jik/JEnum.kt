@@ -10,7 +10,7 @@ class JEnum(val enumName: String) : Codeable {
     /**
      * Access modifier for enum type
      */
-    var access = AccessModifier.PUBLIC
+    private var access = AccessModifier.PUBLIC
 
     /**
      * Writes the code of this class into [builder]
