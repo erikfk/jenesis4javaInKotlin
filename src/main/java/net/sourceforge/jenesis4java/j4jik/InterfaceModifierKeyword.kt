@@ -9,10 +9,6 @@ package net.sourceforge.jenesis4java.j4jik
  */
 enum class InterfaceModifierKeyword(val value : String) {
     /**
-     * Java abstract keyword
-     */
-    ABSTRACT("abstract"),
-    /**
      * Java private keyword
      */
     PRIVATE("private"),
