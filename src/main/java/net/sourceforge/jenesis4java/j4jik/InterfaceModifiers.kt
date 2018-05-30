@@ -12,12 +12,12 @@ class InterfaceModifiers {
     private val annotations: MutableList<Annotation> = ArrayList()
 
     /**
-    * Set containing the interface modifiers other than the annotations.
+    * Set containing the interface modifiers other than annotations.
      */
-    val modifierKeywords: MutableSet<InterfaceModifierKeyword> = HashSet()
+    private val modifierKeywords: MutableSet<InterfaceModifierKeyword> = HashSet()
 
     /**
-     * Adds the specified [annotation] to the list of annotations of annotations of this
+     * Adds the specified [annotation] to the list of annotations of this
      * [InterfaceModifiers] instance.
      */
     fun add(annotation: Annotation) {
@@ -25,11 +25,27 @@ class InterfaceModifiers {
     }
 
     /**
-     * Returns true if the specified [annotation] is contained in the list of annotations of this
-     * [InterfaceModifiers] instance.
+     * Adds the specified [modifier] to the set of interface modifiers of
+     * this [InterfaceModifiers] instance.
+     */
+    fun add(modifier: InterfaceModifierKeyword) {
+        this.modifierKeywords.add(modifier)
+    }
+
+    /**
+     * Returns true if the specified [annotation] is contained in the list of
+     * annotations of this [InterfaceModifiers] instance.
      */
     fun contains(annotation: Annotation): Boolean {
         return this.annotations.contains(annotation)
+    }
+
+    /**
+     * Returns true if the specified [modifierKeyword] is contained in the aet
+     * of interface modifiers of this [InterfaceModifiers] instance.
+     */
+    fun contains(modifierKeyword: InterfaceModifierKeyword): Boolean {
+        return modifierKeywords.contains(modifierKeyword)
     }
 
     /**
@@ -37,5 +53,12 @@ class InterfaceModifiers {
      */
     fun annotationsCount(): Int {
         return annotations.size
+    }
+
+    /**
+     * Returns the number of modifier keywords in this  [InterfaceModifiers] instance.
+     */
+    fun modifierKeywordsCount(): Int {
+        return modifierKeywords.size
     }
 }
