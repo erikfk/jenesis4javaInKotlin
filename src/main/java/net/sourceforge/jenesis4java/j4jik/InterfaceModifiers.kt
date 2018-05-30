@@ -1,20 +1,24 @@
 package net.sourceforge.jenesis4java.j4jik
 
+import java.util.*
+import java.util.stream.Collectors.*
+
 /**
  * Models a group of interface modifiers (for an interface etc.).
  *
  * See JLS 10 §9.1.1
  */
-class InterfaceModifiers {
+class InterfaceModifiers : Codeable {
     /**
-    * List of annotations of the [InterfaceModifiers] instance.
+     * List of annotations of the [InterfaceModifiers] instance.
      */
     private val annotations: MutableList<Annotation> = ArrayList()
 
     /**
-    * Set containing the interface modifiers other than annotations.
+     * Set containing the interface modifiers other than annotations.
      */
-    private val modifierKeywords: MutableSet<InterfaceModifierKeyword> = HashSet()
+    private val modifierKeywords: MutableSet<InterfaceModifierKeyword> =
+        TreeSet(Comparator.comparingInt(InterfaceModifierKeyword::order))
 
     /**
      * Adds the specified [annotation] to the list of annotations of this
@@ -27,9 +31,24 @@ class InterfaceModifiers {
     /**
      * Adds the specified [modifier] to the set of interface modifiers of
      * this [InterfaceModifiers] instance.
+     * Notes:
+     * Adding twice the same access modifier (public, private, protected) is a
+     * no-operation. Trying to add two different access modifiers leads to an
+     * [IllegalStateException].
      */
-    fun add(modifier: InterfaceModifierKeyword) {
-        this.modifierKeywords.add(modifier)
+    fun add(modifier: InterfaceModifierKeyword): InterfaceModifiers {
+        val wasModified = this.modifierKeywords.add(modifier)
+        if (!wasModified && modifier.order == 1 && modifierKeywords.first() != modifier) {
+            throw IllegalStateException("A different access modifier is already present: ${modifierKeywords.first()}")
+        }
+        return this
+    }
+
+    /**
+     * Returns the number of Annotations in this  [InterfaceModifiers] instance.
+     */
+    fun annotationsCount(): Int {
+        return annotations.size
     }
 
     /**
@@ -49,16 +68,13 @@ class InterfaceModifiers {
     }
 
     /**
-     * Returns the number of Annotations in this  [InterfaceModifiers] instance.
-     */
-    fun annotationsCount(): Int {
-        return annotations.size
-    }
-
-    /**
      * Returns the number of modifier keywords in this  [InterfaceModifiers] instance.
      */
     fun modifierKeywordsCount(): Int {
         return modifierKeywords.size
+    }
+
+    override fun toCode(builder: StringBuilder): StringBuilder {
+        return builder.append(modifierKeywords.stream().map(InterfaceModifierKeyword::value).collect(joining(" ")))
     }
 }

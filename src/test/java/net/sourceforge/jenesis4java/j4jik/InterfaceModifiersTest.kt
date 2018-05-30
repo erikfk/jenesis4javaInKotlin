@@ -4,14 +4,10 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import net.sourceforge.jenesis4java.j4jik.InterfaceModifierKeyword.*
+import org.junit.jupiter.api.assertThrows
 
 internal class InterfaceModifiersTest {
     private val interfaceModifiers = InterfaceModifiers()
-
-    @Test
-    fun testNoAnnotationInNewInstance() {
-        assertEquals(0, interfaceModifiers.annotationsCount())
-    }
 
     @Test
     fun testAddAnnotation() {
@@ -27,21 +23,47 @@ internal class InterfaceModifiersTest {
     }
 
     @Test
+    fun testAddModifierKeywords() {
+        interfaceModifiers.add(PUBLIC)
+
+        assertTrue(interfaceModifiers.contains(PUBLIC))
+        assertEquals(1, interfaceModifiers.modifierKeywordsCount())
+
+        interfaceModifiers.add(PUBLIC)
+        assertEquals(1, interfaceModifiers.modifierKeywordsCount())
+
+        interfaceModifiers.add(STATIC)
+        assertEquals(2, interfaceModifiers.modifierKeywordsCount())
+    }
+
+    @Test
+    fun testNoAnnotationInNewInstance() {
+        assertEquals(0, interfaceModifiers.annotationsCount())
+    }
+
+    @Test
     fun testNoModifierInNewInstance() {
         assertEquals(0, interfaceModifiers.modifierKeywordsCount())
     }
 
     @Test
-    fun testAddModifierKeywords() {
-        interfaceModifiers.add(ABSTRACT)
+    fun testToCodeOnNewInstance() {
+        assertEquals("", interfaceModifiers.toCode())
+    }
 
-        assertTrue(interfaceModifiers.contains(ABSTRACT))
-        assertEquals(1, interfaceModifiers.modifierKeywordsCount())
+    @Test
+    fun testTryAddingDifferentAccessModifiers() {
+        val illegalStateException = assertThrows<IllegalStateException> { interfaceModifiers.add(PUBLIC).add(PRIVATE) }
 
-        interfaceModifiers.add(ABSTRACT)
-        assertEquals(1, interfaceModifiers.modifierKeywordsCount())
+        assertTrue(
+            illegalStateException.message!!.contains(PUBLIC.name),
+            "Expected to find  \"${PUBLIC.name}\" in the exception message but message was\" ${illegalStateException.message}\""
+        )
+    }
 
-        interfaceModifiers.add(STATIC)
-        assertEquals(2, interfaceModifiers.modifierKeywordsCount())
+    @Test
+    fun testToCodeWithVariousModifiers() {
+        interfaceModifiers.add(PUBLIC).add(STATIC).add(STRICTFP)
+        assertEquals("public static strictfp", interfaceModifiers.toCode())
     }
 }
