@@ -15,8 +15,10 @@ class InterfaceModifiers : Codeable {
 
     /**
      * Set containing the interface modifiers other than annotations.
-     * Note: it would probably make sense to put this in a own class -
-     * do it as soon as the functionality is needed elsewhere also...
+     * Note: it would probably make sense to put this in an own class -
+     * do it as soon as the functionality is also needed elsewhere...
+     * Note that the modifiers are sorted by modified order, so that modifiers
+     * are written in the customary order when [toCode] is executed.
      */
     private val modifiers: MutableSet<InterfaceModifier> =
         TreeSet(Comparator.comparingInt(InterfaceModifier::order))
@@ -41,6 +43,8 @@ class InterfaceModifiers : Codeable {
      */
     fun add(modifier: InterfaceModifier): InterfaceModifiers {
         val wasModified = this.modifiers.add(modifier)
+        // if a (public, private or protected) access modifier overwrote an
+        // existing, different access modifier
         if (!wasModified && modifier.order == 1 && modifiers.first() != modifier) {
             throw IllegalStateException("A different access modifier is already present: ${modifiers.first()}")
         }
