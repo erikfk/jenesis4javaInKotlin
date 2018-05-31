@@ -1,7 +1,5 @@
 package net.sourceforge.jenesis4java.j4jik
 
-import java.util.stream.Collectors
-
 /**
  * Models a Java class.
  *
@@ -31,8 +29,7 @@ class JClass(val className: String) : Codeable {
         return "<${collectTypeParameterDeclaration()}>"
     }
 
-    private fun collectTypeParameterDeclaration() =
-            typeParameters.stream().map(TypeParameter::toCode).collect(Collectors.joining(", "))
+    private fun collectTypeParameterDeclaration() = typeParameters.joinToString(transform = TypeParameter::toCode)
 
     /**
      * Adds [typeParameter] to this [JClass]'s type parameter list.

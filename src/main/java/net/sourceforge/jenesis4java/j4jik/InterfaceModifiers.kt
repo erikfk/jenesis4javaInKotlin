@@ -1,7 +1,6 @@
 package net.sourceforge.jenesis4java.j4jik
 
 import java.util.*
-import java.util.stream.Collectors.*
 
 /**
  * Models a group of interface modifiers (for an interface etc.).
@@ -32,8 +31,9 @@ class InterfaceModifiers : Codeable {
      * Adds the specified [modifier] to the set of interface modifiers of
      * this [InterfaceModifiers] instance.
      * Notes:
-     * Adding twice the same access modifier (public, private, protected) is a
-     * no-operation. Trying to add two different access modifiers leads to an
+     * + Adding twice the same access modifier (public, private, protected) is a
+     * no-operation.
+     * + Trying to add two different access modifiers leads to an
      * [IllegalStateException].
      */
     fun add(modifier: InterfaceModifierKeyword): InterfaceModifiers {
@@ -75,6 +75,6 @@ class InterfaceModifiers : Codeable {
     }
 
     override fun toCode(builder: StringBuilder): StringBuilder {
-        return builder.append(modifierKeywords.stream().map(InterfaceModifierKeyword::value).collect(joining(" ")))
+        return modifierKeywords.map(InterfaceModifierKeyword::value).joinTo(builder, " ")
     }
 }

@@ -24,10 +24,8 @@ public class FormattingHelper {
      *
      * @param rawCode the code to format
      * @return the formatted code
-     * @throws FormatterException thrown if formatting failed (typically because
-     *                            the code is incorrect).
      */
-    public static String formatCode(String rawCode) {
+    private static String formatCode(String rawCode) {
         try {
             return FORMATTER.formatSource(rawCode);
         } catch (FormatterException e) {
@@ -42,10 +40,8 @@ public class FormattingHelper {
      *
      * @param expectedCode the (possibly) unformatted expected code
      * @param actualCode   the (possibly) unformatted actual code
-     * @throws FormatterException thrown if formatting failed (typically because
-     *                            the code is incorrect).
      */
-    public static void assertCodeEquals(String expectedCode, String actualCode) throws FormatterException {
+    public static void assertCodeEquals(String expectedCode, String actualCode) {
         Assertions.assertEquals(formatCode(expectedCode), formatCode(actualCode));
     }
 }

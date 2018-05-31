@@ -5,7 +5,7 @@ package net.sourceforge.jenesis4java.j4jik
  */
 interface Codeable {
     /**
-     * Writes the code of the [Codeable] into the specidied [builder]
+     * Writes the code of the [Codeable] into the specified [builder]
      */
     fun toCode(builder: StringBuilder): StringBuilder
 
