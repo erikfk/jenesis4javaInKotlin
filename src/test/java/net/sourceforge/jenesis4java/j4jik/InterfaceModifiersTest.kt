@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 import net.sourceforge.jenesis4java.j4jik.InterfaceModifierKeyword.*
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.assertThrows
 
 internal class InterfaceModifiersTest {
@@ -47,11 +48,6 @@ internal class InterfaceModifiersTest {
     }
 
     @Test
-    fun testToCodeOnNewInstance() {
-        assertEquals("", interfaceModifiers.toCode())
-    }
-
-    @Test
     fun testTryAddingDifferentAccessModifiers() {
         val illegalStateException = assertThrows<IllegalStateException> { interfaceModifiers.add(PUBLIC).add(PRIVATE) }
 
@@ -61,9 +57,44 @@ internal class InterfaceModifiersTest {
         )
     }
 
-    @Test
-    fun testToCodeWithVariousModifiers() {
-        interfaceModifiers.add(PUBLIC).add(STATIC).add(STRICTFP)
-        assertEquals("public static strictfp", interfaceModifiers.toCode())
+    @Nested
+    inner class TestToCode {
+
+        @Test
+        fun testToCodeOnNewInstance() {
+            assertEquals("", interfaceModifiers.toCode())
+        }
+
+        @Test
+        fun testToCodeWithOneAnnotation() {
+            interfaceModifiers.add(NormalAnnotation("Ann"))
+            assertEquals("@Ann", interfaceModifiers.toCode())
+        }
+
+        @Test
+        fun testToCodeWithAnnotations() {
+            interfaceModifiers.add(NormalAnnotation("Ann1")).add(NormalAnnotation("Ann2"))
+            assertEquals("@Ann1 @Ann2", interfaceModifiers.toCode())
+        }
+
+        @Test
+        fun testToCodeWithMixOfAnnotationsAndModifiers() {
+            interfaceModifiers.add(NormalAnnotation("Ann1")) //
+                .add(NormalAnnotation("Ann2")) //
+                .add(PUBLIC)
+            assertEquals("@Ann1 @Ann2 public", interfaceModifiers.toCode())
+        }
+
+        @Test
+        fun testToCodeWithVariousModifiersInOrder() {
+            interfaceModifiers.add(PUBLIC).add(STATIC).add(STRICTFP)
+            assertEquals("public static strictfp", interfaceModifiers.toCode())
+        }
+
+        @Test
+        fun testToCodeWithVariousModifiersInReverseOrder() {
+            interfaceModifiers.add(STRICTFP).add(STATIC).add(PUBLIC)
+            assertEquals("public static strictfp", interfaceModifiers.toCode())
+        }
     }
 }

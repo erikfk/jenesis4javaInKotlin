@@ -15,21 +15,24 @@ class InterfaceModifiers : Codeable {
 
     /**
      * Set containing the interface modifiers other than annotations.
+     * Note: it would probably make sense to put this in a own class -
+     * do it as soon as the functionality is needed elsewhere also...
      */
     private val modifierKeywords: MutableSet<InterfaceModifierKeyword> =
         TreeSet(Comparator.comparingInt(InterfaceModifierKeyword::order))
 
     /**
      * Adds the specified [annotation] to the list of annotations of this
-     * [InterfaceModifiers] instance.
+     * [InterfaceModifiers] instance and return the instance.
      */
-    fun add(annotation: Annotation) {
+    fun add(annotation: Annotation) : InterfaceModifiers{
         this.annotations.add(annotation)
+        return this
     }
 
     /**
      * Adds the specified [modifier] to the set of interface modifiers of
-     * this [InterfaceModifiers] instance.
+     * this [InterfaceModifiers] instance and returns the instance.
      * Notes:
      * + Adding twice the same access modifier (public, private, protected) is a
      * no-operation.
@@ -68,13 +71,16 @@ class InterfaceModifiers : Codeable {
     }
 
     /**
-     * Returns the number of modifier keywords in this  [InterfaceModifiers] instance.
+     * Returns the number of modifier keywords in this [InterfaceModifiers] instance.
      */
     fun modifierKeywordsCount(): Int {
         return modifierKeywords.size
     }
 
     override fun toCode(builder: StringBuilder): StringBuilder {
-        return modifierKeywords.map(InterfaceModifierKeyword::value).joinTo(builder, " ")
+        annotations.joinTo(builder, " ", transform = Codeable::toCode)
+        return modifierKeywords.map(InterfaceModifierKeyword::value).joinTo(builder, " ", prefix = toCodeModifiersPrefix())
     }
+
+    private fun toCodeModifiersPrefix() = if (annotations.isEmpty() || modifierKeywords.isEmpty()) "" else " "
 }
