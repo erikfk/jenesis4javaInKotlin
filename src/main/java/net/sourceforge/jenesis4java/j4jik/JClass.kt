@@ -19,7 +19,7 @@ class JClass(val className: String) : Codeable {
      */
     override fun toCode(builder: StringBuilder): StringBuilder {
         return builder.append("""
-            |${access.value} ${JKeywords.CLASS.keyword} $className${typeParametersToCode()} {
+            |${access.keyword()} ${JKeywords.CLASS.keyword} $className${typeParametersToCode()} {
             |}
             """.trimMargin())
     }

@@ -3,7 +3,7 @@ package net.sourceforge.jenesis4java.j4jik
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
-import net.sourceforge.jenesis4java.j4jik.InterfaceModifierKeyword.*
+import net.sourceforge.jenesis4java.j4jik.InterfaceModifier.*
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.assertThrows
 

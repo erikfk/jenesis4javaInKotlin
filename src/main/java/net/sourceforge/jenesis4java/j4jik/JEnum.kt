@@ -16,6 +16,6 @@ class JEnum(val enumName: String) : Codeable {
      * Writes the code of this class into [builder]
      */
     override fun toCode(builder: StringBuilder): StringBuilder {
-        return builder.append("${access.value} ${JKeywords.ENUM.keyword}  $enumName {}")
+        return builder.append("${access.keyword()} ${JKeywords.ENUM.keyword}  $enumName {}")
     }
 }

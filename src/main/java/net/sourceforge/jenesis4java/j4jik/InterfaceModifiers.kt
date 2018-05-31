@@ -18,8 +18,8 @@ class InterfaceModifiers : Codeable {
      * Note: it would probably make sense to put this in a own class -
      * do it as soon as the functionality is needed elsewhere also...
      */
-    private val modifierKeywords: MutableSet<InterfaceModifierKeyword> =
-        TreeSet(Comparator.comparingInt(InterfaceModifierKeyword::order))
+    private val modifiers: MutableSet<InterfaceModifier> =
+        TreeSet(Comparator.comparingInt(InterfaceModifier::order))
 
     /**
      * Adds the specified [annotation] to the list of annotations of this
@@ -39,10 +39,10 @@ class InterfaceModifiers : Codeable {
      * + Trying to add two different access modifiers leads to an
      * [IllegalStateException].
      */
-    fun add(modifier: InterfaceModifierKeyword): InterfaceModifiers {
-        val wasModified = this.modifierKeywords.add(modifier)
-        if (!wasModified && modifier.order == 1 && modifierKeywords.first() != modifier) {
-            throw IllegalStateException("A different access modifier is already present: ${modifierKeywords.first()}")
+    fun add(modifier: InterfaceModifier): InterfaceModifiers {
+        val wasModified = this.modifiers.add(modifier)
+        if (!wasModified && modifier.order == 1 && modifiers.first() != modifier) {
+            throw IllegalStateException("A different access modifier is already present: ${modifiers.first()}")
         }
         return this
     }
@@ -63,24 +63,24 @@ class InterfaceModifiers : Codeable {
     }
 
     /**
-     * Returns true if the specified [modifierKeyword] is contained in the aet
+     * Returns true if the specified [modifier] is contained in the aet
      * of interface modifiers of this [InterfaceModifiers] instance.
      */
-    fun contains(modifierKeyword: InterfaceModifierKeyword): Boolean {
-        return modifierKeywords.contains(modifierKeyword)
+    fun contains(modifier: InterfaceModifier): Boolean {
+        return modifiers.contains(modifier)
     }
 
     /**
      * Returns the number of modifier keywords in this [InterfaceModifiers] instance.
      */
     fun modifierKeywordsCount(): Int {
-        return modifierKeywords.size
+        return modifiers.size
     }
 
     override fun toCode(builder: StringBuilder): StringBuilder {
         annotations.joinTo(builder, " ", transform = Codeable::toCode)
-        return modifierKeywords.map(InterfaceModifierKeyword::value).joinTo(builder, " ", prefix = toCodeModifiersPrefix())
+        return modifiers.map(InterfaceModifier::keyword).joinTo(builder, " ", prefix = toCodeModifiersPrefix())
     }
 
-    private fun toCodeModifiersPrefix() = if (annotations.isEmpty() || modifierKeywords.isEmpty()) "" else " "
+    private fun toCodeModifiersPrefix() = if (annotations.isEmpty() || modifiers.isEmpty()) "" else " "
 }

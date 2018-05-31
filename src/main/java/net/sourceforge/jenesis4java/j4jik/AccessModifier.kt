@@ -5,7 +5,7 @@ package net.sourceforge.jenesis4java.j4jik
  *
  * @param[value] the string for the access modifier in Java.
  */
-enum class AccessModifier(val value : String) {
+enum class AccessModifier(private val value : String) {
     /**
      * Package visible
      */
@@ -21,5 +21,12 @@ enum class AccessModifier(val value : String) {
     /**
      * public access modifier
      */
-    PUBLIC("public")
+    PUBLIC("public");
+
+    /**
+     * Return the Java keyword the [AccessModifier] represents as a [String]
+     */
+    fun keyword() : String {
+        return value
+    }
 }
