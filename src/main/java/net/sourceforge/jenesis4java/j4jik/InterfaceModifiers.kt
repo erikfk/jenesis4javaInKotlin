@@ -20,7 +20,7 @@ class InterfaceModifiers : Codeable {
      * Note that the modifiers are sorted by modified order, so that modifiers
      * are written in the customary order when [toCode] is executed.
      */
-    private val modifiers: MutableSet<InterfaceModifier> =
+    private val modifiers: TreeSet<InterfaceModifier> =
         TreeSet(Comparator.comparingInt(InterfaceModifier::order))
 
     /**
@@ -83,8 +83,35 @@ class InterfaceModifiers : Codeable {
 
     override fun toCode(builder: StringBuilder): StringBuilder {
         annotations.joinTo(builder, " ", transform = Codeable::toCode)
-        return modifiers.map(InterfaceModifier::keyword).joinTo(builder, " ", prefix = toCodeModifiersPrefix())
+        return modifiers.joinTo(builder, " ", prefix = toCodeModifiersPrefix(), transform = InterfaceModifier::keyword)
     }
 
     private fun toCodeModifiersPrefix() = if (annotations.isEmpty() || modifiers.isEmpty()) "" else " "
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as InterfaceModifiers
+
+        if (annotations != other.annotations) return false
+        return sameModifiers(modifiers, other.modifiers)
+    }
+
+    private fun sameModifiers(modifiers: TreeSet<InterfaceModifier>, otherModifiers: TreeSet<InterfaceModifier>): Boolean {
+        if (modifiers.size != otherModifiers.size) return false
+
+        val iterator = modifiers.iterator()
+        val otherIterator = otherModifiers.iterator()
+        while(iterator.hasNext()) {
+            if(iterator.next() != otherIterator.next()) return false
+        }
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = annotations.hashCode()
+        result = 31 * result + modifiers.hashCode()
+        return result
+    }
 }

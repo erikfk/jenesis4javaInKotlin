@@ -8,6 +8,9 @@ package net.sourceforge.jenesis4java.j4jik
  * @param[typeName] name of the annotation
  */
 class NormalAnnotation(val typeName: String) : Annotation {
+    var modifiers: InterfaceModifiers? = null
+
+
     /**
      * Equals as usual.
      */
@@ -34,5 +37,9 @@ class NormalAnnotation(val typeName: String) : Annotation {
      */
     override fun toCode(builder: StringBuilder): StringBuilder {
         return builder.append("@$typeName")
+    }
+
+    fun add(modifiers: InterfaceModifiers) {
+        this.modifiers = modifiers
     }
 }

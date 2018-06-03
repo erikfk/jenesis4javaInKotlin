@@ -1,11 +1,12 @@
 package net.sourceforge.jenesis4java.j4jik
 
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 import net.sourceforge.jenesis4java.j4jik.InterfaceModifier.*
+import org.junit.jupiter.api.Assertions.assertNotEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import kotlin.test.assertEquals
 
 internal class InterfaceModifiersTest {
     private val interfaceModifiers = InterfaceModifiers()
@@ -52,9 +53,49 @@ internal class InterfaceModifiersTest {
         val illegalStateException = assertThrows<IllegalStateException> { interfaceModifiers.add(PUBLIC).add(PRIVATE) }
 
         assertTrue(
-            illegalStateException.message!!.contains(PUBLIC.name),
-            "Expected to find  \"${PUBLIC.name}\" in the exception message but message was\" ${illegalStateException.message}\""
+                illegalStateException.message!!.contains(PUBLIC.name),
+                "Expected to find  \"${PUBLIC.name}\" in the exception message but message was\" ${illegalStateException.message}\""
         )
+    }
+
+    @Nested
+    inner class TestEquals {
+        @Test
+        fun testEqualsNull() {
+            assertNotEquals(interfaceModifiers, null)
+        }
+
+        @Test
+        fun testEqualsDifferent() {
+            assertNotEquals(interfaceModifiers.add(NormalAnnotation("SomeAnnotation")).add(PUBLIC),
+                    InterfaceModifiers().add(NormalAnnotation("SomeAnnotation")).add(PRIVATE))
+
+            assertNotEquals(interfaceModifiers.add(NormalAnnotation("SomeAnnotation")).add(PUBLIC),
+                    InterfaceModifiers().add(NormalAnnotation("SomeOtherAnnotation")).add(PUBLIC))
+        }
+
+        @Test
+        fun testEqualsDifferentTypes() {
+            assertNotEquals(interfaceModifiers.add(NormalAnnotation("SomeAnnotation")).add(PUBLIC),
+                    Object())
+        }
+
+        @Test
+        fun testEqualsIdentical() {
+            assertEquals(interfaceModifiers.add(NormalAnnotation("SomeAnnotation")).add(PUBLIC),
+                    InterfaceModifiers().add(NormalAnnotation("SomeAnnotation")).add(PUBLIC))
+        }
+
+        @Test
+        fun testEqualsSame() {
+            val modifiers = interfaceModifiers.add(NormalAnnotation("SomeAnnotation")).add(PUBLIC)
+            assertEquals(modifiers, modifiers)
+        }
+    }
+
+    @Test
+    fun testHashCode() {
+        assertEquals(interfaceModifiers.hashCode(), InterfaceModifiers().hashCode())
     }
 
     @Nested
@@ -80,8 +121,8 @@ internal class InterfaceModifiersTest {
         @Test
         fun testToCodeWithMixOfAnnotationsAndModifiers() {
             interfaceModifiers.add(NormalAnnotation("Ann1")) //
-                .add(NormalAnnotation("Ann2")) //
-                .add(PUBLIC)
+                    .add(NormalAnnotation("Ann2")) //
+                    .add(PUBLIC)
             assertEquals("@Ann1 @Ann2 public", interfaceModifiers.toCode())
         }
 
