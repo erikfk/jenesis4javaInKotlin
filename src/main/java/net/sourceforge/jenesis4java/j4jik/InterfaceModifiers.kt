@@ -88,6 +88,9 @@ class InterfaceModifiers : Codeable {
 
     private fun toCodeModifiersPrefix() = if (annotations.isEmpty() || modifiers.isEmpty()) "" else " "
 
+    /**
+     * Equals as one would expect.
+     */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -115,6 +118,9 @@ class InterfaceModifiers : Codeable {
         return true
     }
 
+    /**
+     * HashCode as one would expect.
+     */
     override fun hashCode(): Int {
         var result = annotations.hashCode()
         result = 31 * result + modifiers.hashCode()
