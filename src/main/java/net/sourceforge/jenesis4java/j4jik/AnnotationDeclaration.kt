@@ -12,7 +12,7 @@ package net.sourceforge.jenesis4java.j4jik
  *
  * @param[typeIdentifier] name of the new annotation type
  */
-class AnnotationDeclaration(val typeIdentifier : String) : Codeable {
+class AnnotationDeclaration(val typeIdentifier : String) : Annotation {
     /**
      * [InterfaceModifiers] of the [AnnotationDeclaration]
      */
