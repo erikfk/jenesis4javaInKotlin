@@ -1,8 +1,11 @@
 package net.sourceforge.jenesis4java.j4jik
 
+import net.sourceforge.jenesis4java.j4jik.FormattingHelper.assertCodeEquals
+import net.sourceforge.jenesis4java.j4jik.InterfaceModifier.*
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Nested
 
 internal class AnnotationDeclarationTest {
 
@@ -13,11 +16,21 @@ internal class AnnotationDeclarationTest {
         assertEquals("AnnotationName", annotationDeclaration.typeIdentifier)
     }
 
-    @Test
-    fun simplestToCode() {
-        val annotationDeclaration = AnnotationDeclaration("AnnotationName")
+    @Nested
+    inner class ToCodeTests {
+        @Test
+        fun simplestToCode() {
+            val annotationDeclaration = AnnotationDeclaration("AnnotationName")
 
-        FormattingHelper.assertCodeEquals("@interface AnnotationName {}", annotationDeclaration.toCode())
-        FormattingHelper.assertCodeEquals("@interface AnnotationName {}", annotationDeclaration.toCode())
+            assertCodeEquals("@interface AnnotationName {}", annotationDeclaration.toCode())
+        }
+
+        @Test
+        fun testToCodeWithModifiers() {
+            val annotationDeclaration = AnnotationDeclaration("AnnotationName")
+            annotationDeclaration.add(InterfaceModifiers().add(PUBLIC))
+
+            assertCodeEquals("public @interface AnnotationName {}", annotationDeclaration.toCode())
+        }
     }
 }

@@ -98,6 +98,12 @@ class InterfaceModifiers : Codeable {
         return sameModifiers(modifiers, other.modifiers)
     }
 
+    /**
+     * Due to the smart (?) comparision function we use in the TreeSet containing
+     * the modifiers and the fact that that function is used to compare the content
+     * of TreeSets, we have write our own equals method to compare modifiers the
+     * way we want it: with the equals method of [InterfaceModifier]
+     */
     private fun sameModifiers(modifiers: TreeSet<InterfaceModifier>, otherModifiers: TreeSet<InterfaceModifier>): Boolean {
         if (modifiers.size != otherModifiers.size) return false
 

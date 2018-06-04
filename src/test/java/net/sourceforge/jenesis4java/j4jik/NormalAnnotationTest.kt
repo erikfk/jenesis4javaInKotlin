@@ -9,7 +9,7 @@ internal class NormalAnnotationTest {
 
     @Test
     fun testAddInterfaceModifier() {
-        val normalAnnotation = NormalAnnotation("AnnotationName")
+        val normalAnnotation = AnnotationDeclaration("AnnotationName")
         val modifiers = InterfaceModifiers().add(InterfaceModifier.PUBLIC)
 
         normalAnnotation.add(modifiers)
@@ -60,10 +60,13 @@ internal class NormalAnnotationTest {
         assertEquals(NormalAnnotation("AnnotationName").hashCode(), NormalAnnotation("AnnotationName").hashCode())
     }
 
-    @Test
-    fun testSimplestToCode() {
-        val normalAnnotation = NormalAnnotation("AnnotationName")
+    @Nested
+    inner class ToCodeTests {
+        @Test
+        fun testSimplestToCode() {
+            val normalAnnotation = NormalAnnotation("AnnotationName")
 
-        assertEquals("@AnnotationName", normalAnnotation.toCode())
+            assertEquals("@AnnotationName", normalAnnotation.toCode())
+        }
     }
 }
